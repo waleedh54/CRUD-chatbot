@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Admin Login</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-box">
+    <h1>Admin Login</h1>
+    <p>Enter your registered admin email to continue.</p>
+    <input type="email" id="email" placeholder="you@company.com" />
+    <button id="loginBtn">Login</button>
+    <p id="error" class="error"></p>
+  </div>
+
+  <script>
+    const API_BASE = "http://localhost:8000";
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const errorEl = document.getElementById("error");
+      errorEl.textContent = "";
+      if (!email) {
+        errorEl.textContent = "Please enter an email.";
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          errorEl.textContent = data.detail || "Login failed.";
+          return;
+        }
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("admin_email", data.admin_email);
+        window.location.href = "index.html";
+      } catch (e) {
+        errorEl.textContent = "Could not reach server.";
+      }
+    });
+  </script>
+</body>
+</html>

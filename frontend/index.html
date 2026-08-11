@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Admin Chatbot</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>User Management Chatbot</h1>
+      <div>
+        <span id="adminEmail"></span>
+        <button id="logoutBtn">Logout</button>
+      </div>
+    </header>
+
+    <div class="chat-window" id="chatWindow"></div>
+
+    <form id="chatForm" class="chat-input">
+      <input
+        type="text"
+        id="messageInput"
+        placeholder='e.g. add the user "john@xyz.com" with phone "+92332"'
+        autocomplete="off"
+      />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
